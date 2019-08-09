@@ -147,7 +147,7 @@ syntax enable
  " set clipboard^=unnamed,unnamedplus 
  " set clipboard^=unnamedplus,unnamed 
 "  set clipboard=unnamedplus 
-  set clipboard=unnamedplus
+  set clipboard+=unnamedplus
 
 " nmap p <plug>(YoinkPaste_p)
 " nmap P <plug>(YoinkPaste_P)
@@ -178,22 +178,6 @@ au BufNewFile,BufRead *.js, *.html, *.css
     \ set softtabstop=2
     \ set shiftwidth=2
     
-" Some Python Stuffs "
-  """"""""""""""""""
-
- " Add proper Python PEP 8 indentation
-"au BufNewFile,BufRead *.py
-"    \ set tabstop=4
-"    \ set softtabstop=4
-"    \ set shiftwidth=4
-"    \ set textwidth=79
-"    \ set expandtab
-"    \ set autoindent
-"    \ set fileformat=unix 
-
-" Marks extra whitespace as bad 
-" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shamelessly stolen from https:github.com/alexandercampbell/dotfiles"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -224,15 +208,35 @@ au FileType gitcommit setl spell
 " Use the canonically accepted indentation in certain filetypes.
 au FileType yaml                setl ts=4 sw=4 et
 au FileType tex                 setl ts=4 sw=4 et
-" au FileType javascript          setl ts=4 sw=4 et
+"au FileType javascript          setl ts=4 sw=4 et
 au FileType java                setl ts=4 sw=4 et
 au FileType json                setl ts=4 sw=4 et
-" au FileType python              setl ts=4 sw=4 et
+"au FileType python              setl ts=4 sw=4 et
 au FileType elm                 setl ts=4 sw=4 et
 au FileType elixir              setl ts=4 sw=4 et
 au FileType lua                 setl ts=4 sw=4 et
 au FileType dart                setl ts=2 sw=2 et
-" au FileType html                setl ts=2 sw=2 et
+"au FileType html                setl ts=2 sw=2 et
 au FileType haskell             setl ts=4 sw=4 et
 au FileType tex                 setl ts=4 sw=4 et
 au FileType pug 		setl ts=4 sw=4 et
+
+
+" Stolen from Malcolm
+""LanguageClient-neovim
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'dart': ['pub', 'global', 'run', 'dart_language_server'],
+    \ }
+
+nnoremap <leader><space> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> <leader>k :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR><Paste>
