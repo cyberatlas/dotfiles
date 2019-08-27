@@ -28,6 +28,14 @@ cp ~/dotfiles/init.vim ~/.config/nvim/
 # Install the nvim plugins
 nvim -c 'PlugInstall'
 
+# I need the most recent version of Rust to install vim-markdown-composer 
+curl https://sh.rustup.rs -sSf | sh
+
+# Change into the proper directory and build everything
+cd ~/.config/.nvim/plugged/vim-markdown-composer/
+cargo build --release
+cd ~
+
 # Install Flatpak
 echo "Press Enter and Y" 
 sudo pamac install flatpak
