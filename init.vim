@@ -155,13 +155,16 @@ syntax enable
  set relativenumber
 
  " Set textwidth the accepted 80
- set tw=80
+ " set tw=80
 
  " Allows the use of the system clipboard crossplatform
  " set clipboard^=unnamed,unnamedplus 
  " set clipboard^=unnamedplus,unnamed 
 "  set clipboard=unnamedplus 
   set clipboard+=unnamedplus
+
+ " Set the colorscheme
+ colorscheme stingray
 
 " nmap p <plug>(YoinkPaste_p)
 " nmap P <plug>(YoinkPaste_P)
@@ -254,3 +257,5 @@ nnoremap <leader><space> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> <leader>k :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR><Paste>
+
+
