@@ -55,5 +55,21 @@ sudo dnf install VirtualBox-6.0 -y
 # Install VSCode
 sudo snap install code --classic
 
-# TODO install screenfetch and at the end print the complete message and open screenfetch
+# Install Docker
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager \
+    --add-repo \
+    https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io -y
 
+# TODO isntall conda
+
+# Prevent conda from activating the base env
+conda config --set auto_activate_base false
+
+
+# Finally install screenfetch and display
+sudo dnf install screenfetch -y
+screenfetch
+
+echo "DONE"
