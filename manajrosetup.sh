@@ -30,6 +30,7 @@ nvim -c 'PlugInstall'
 
 # I need the most recent version of Rust to install vim-markdown-composer 
 curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/bin
 
 # Change into the proper directory and build everything
 cd ~/.config/.nvim/plugged/vim-markdown-composer/
