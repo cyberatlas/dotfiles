@@ -16,10 +16,12 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ntpeters/vim-better-whitespace'
 
 " Checking syntax (linting) with LSP
-Plug 'w0rp/ale'
+Plug '/ale'
 
-" Get LSP 
-Plug 'autozimu/LanguageClient-neovim', {
+"""Setting up the LSP and autocompletion""""
+
+" Get LSP
+"Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
@@ -28,13 +30,14 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } 
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Sensible Vim: Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
 
-" Filesystem explorer 
+" Filesystem explorer
 Plug 'scrooloose/nerdtree'
+
 
 " One stop shop for vim colorschemes
 Plug 'flazz/vim-colorschemes'
@@ -52,32 +55,23 @@ Plug 'neomake/neomake'
 "Vim subversive - makes it easy to perform quick substitutions
 " Plugin 'svermeulen/vim-subversive' 
 
-"AutoComplPop - Automatically opens popup menu for completions
-" Plugin 'vim-scripts/AutoComplPop'
-
-"Indent line  - Show indentation with thin vertical lines
-"Plugin 'Yggdroot/indentLine'
-
 " Helps with folding 
 "Plugin 'tmhedberg/SimpylFold'
 
-" Better python autoindent
-"Plugin 'vim-scripts/indentpython.vim'
-
-" TODO make a better way to install and use this
-" YouCompleteMe 
-
-" Checks syntax
-"Plugin 'vim-syntastic/syntastic'
-
-" Adds Python PEP 8 Checking
-Plug 'nvie/vim-flake8'
 
 " Status bar
 " Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/nvim/'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Install nerd commenter - commment functions so powerful - no commment necessary
+" https://github.com/preservim/nerdcommenter
+" [count]<leader>cc - comment out current/selected lines
+" [count]<leader>cu - uncomment selected lines
+"  [count]<leader>c<space> |NERDCommenterToggle| 
+"  Toggles the comment state of the selected line(s). If the topmost selected line is commented, all selected lines are uncommented and vice versa.
+
+Plug 'preservim/nerdcommenter'
 
 " Trying to get a live preview for markdown
 function! BuildComposer(info)
@@ -91,6 +85,8 @@ function! BuildComposer(info)
 endfunction
 
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+
+Plug 'heavenshell/vim-pydocstring'
 
 """""""""""""""""""""
 " End of My Plugins "
@@ -113,6 +109,7 @@ call plug#end()
 
 "For indentLine
 " let g:indentLine_enabled = 1
+
 " Keep sign gutter open Ale
 let g:ale_sign_column_always = 1
 
@@ -125,26 +122,29 @@ let python_highlight_all=1
 syntax on
 
 " Start deoplete on startup
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
 " Run Neomake on read/write operations
 autocmd! BufReadPost,BufWritePost * Neomake
-
-" Python mode config
-let g:pymode_python = 'python3'
 
 """"""""""""""""""""""""""
 " End of Plugin Settings "
 """"""""""""""""""""""""""
 
 " Reenable filetype, syntax
-filetype plugin indent on 
+filetype plugin indent on
 syntax enable
+
+"Trying to make leader key
+let mapleader = ";"
+" Allows to quickly save
+noremap <leader>w :w<cr>
+noremap <leader>q :q<cr>
 
  """"""""""""""""""
  " My Other Stuff "
  """"""""""""""""""
- 
+
  " Encoding UTF8
  set encoding=utf-8
 
@@ -154,13 +154,10 @@ syntax enable
  " changes the number based on location for ease of movement
  set relativenumber
 
- " Set textwidth the accepted 80
- " set tw=80
-
  " Allows the use of the system clipboard crossplatform
- " set clipboard^=unnamed,unnamedplus 
- " set clipboard^=unnamedplus,unnamed 
-"  set clipboard=unnamedplus 
+ " set clipboard^=unnamed,unnamedplus
+ " set clipboard^=unnamedplus,unnamed
+"  set clipboard=unnamedplus
   set clipboard+=unnamedplus
 
  " Set the colorscheme
@@ -171,21 +168,21 @@ syntax enable
 " nmap y <plug>(YoinkYankPreserveCursorPosition)
 " xmap y <plug>(YoinkYankPreserveCursorPosition)
 " nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
- 
+
  " Setting my default tab
  setl ts=4 sw=4 et
- 
+
  " Indentation display
  "set list lcs=tab:'┊'
  " set listchars=eol:¬,tab:▸\
- set list
+ "set list
  "set listchars=tab:▸▸
- set listchars=tab:.▸
+ "set listchars=tab:.▸
 
- " Enable folding 
+ " Enable folding
  set foldmethod=indent
  set foldlevel=99
- 
+
  " Remap the folding key
  noremap <space> za
 
@@ -194,7 +191,7 @@ au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
-    
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shamelessly stolen from https:github.com/alexandercampbell/dotfiles"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,8 +209,6 @@ set backspace=indent,eol,start
 set complete-=i
 set smarttab
 
-
-
 " recognize file extensions as the correct filetypes
 au BufRead,BufNewFile *.md set ft=markdown
 au BufRead,BufNewFile *.yaml se ft=yaml
@@ -228,7 +223,7 @@ au FileType tex                 setl ts=4 sw=4 et
 "au FileType javascript          setl ts=4 sw=4 et
 au FileType java                setl ts=4 sw=4 et
 au FileType json                setl ts=4 sw=4 et
-"au FileType python              setl ts=4 sw=4 et
+au FileType python              setl ts=4 sw=4 et
 au FileType elm                 setl ts=4 sw=4 et
 au FileType elixir              setl ts=4 sw=4 et
 au FileType lua                 setl ts=4 sw=4 et
@@ -238,8 +233,30 @@ au FileType haskell             setl ts=4 sw=4 et
 au FileType tex                 setl ts=4 sw=4 et
 au FileType pug 		setl ts=4 sw=4 et
 
+"""""""""""""""""""""""""""
 
-" Stolen from Malcolm
+"""""""""Neomake""""
+
+"" -d is where we can specify errors to ignore"""
+let g:neomake_python_flake8_maker= {
+  \ 'args': [
+  \ '-d', 'C0103, C0111', 'W391',
+  \ '-f', 'text',
+  \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
+  \ '-r', 'n'
+  \ ],
+  \ 'errorformat':
+  \ '%A%f:%l:%c:%t: %m,' .
+  \ '%A%f:%l: %m,' .
+  \ '%A%f:(%l): %m,' .
+  \ '%-Z%p^%.%#,' .
+  \ '%-G%.%#',
+  \ }
+
+let g:neomake_python_enabled_makers = ['flake8']
+
+""""""""""""""""""""""""""""""""""""""
+
 ""LanguageClient-neovim
 " Required for operations modifying multiple buffers like rename.
 set hidden
@@ -249,13 +266,20 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ 'python': ['/usr/local/bin/pyls'],
-    \ 'dart': ['pub', 'global', 'run', 'dart_language_server'],
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ }
 
-nnoremap <leader><space> :call LanguageClient_contextMenu()<CR>
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
-nnoremap <silent> <leader>k :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR><Paste>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
+"" closes small window from deoplete
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+set splitbelow
 
+""Some Good Resources"""
+"https://jdhao.github.io/2018/12/24/centos_nvim_install_use_guide_en/
+"https://jdhao.github.io/2018/09/20/disable_warning_neomake_pylint/

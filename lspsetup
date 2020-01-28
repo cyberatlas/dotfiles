@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Python - make sure python3-devel is installed
+# If there are issues with pip perms:  sudo chown -R <username>:<ruski? /usr/local/lib/
+
+pip install 'python-language-server[all]'
+
+# to set up deoplete and deoplete-jedi need to pip install pynvim
+pip install pynvim
+
+# Setup install flake8 if not already installed
+pip install flake8
+

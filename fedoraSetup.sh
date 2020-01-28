@@ -12,6 +12,10 @@ chsh -s /bin/zsh
 # Install oh my zsh
 yes | sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+# Install Python
+sudo dnf install python -y
+sudo dnf install python3-devel
+
 # Needed to install snaps
 sudo ln -s /var/lib/snapd/snap /snap
 
@@ -72,4 +76,11 @@ conda config --set auto_activate_base false
 sudo dnf install screenfetch -y
 screenfetch
 
+# Get conky
+sudo dnf install conky
+mkdir -p ~/.config/conky
+conky -C > ~/.config/conky/
+
 echo "DONE"
+
+
