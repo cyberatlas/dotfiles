@@ -16,12 +16,12 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ntpeters/vim-better-whitespace'
 
 " Checking syntax (linting) with LSP
-Plug '/ale'
+ Plug 'dense-analysis/ale'
 
 """Setting up the LSP and autocompletion""""
 
 " Get LSP
-"Plug 'autozimu/LanguageClient-neovim', {
+Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
@@ -45,6 +45,7 @@ Plug 'flazz/vim-colorschemes'
 " TODO figure this out
 Plug 'neomake/neomake'
 
+" Not using this in favor of xclip
 " Vim yoink - yank and put with sys clipboard
 " Plugin 'svermeulen/vim-yoink'
 
@@ -161,7 +162,7 @@ noremap <leader>q :q<cr>
   set clipboard+=unnamedplus
 
  " Set the colorscheme
- colorscheme stingray
+ "colorscheme stingray
 
 " nmap p <plug>(YoinkPaste_p)
 " nmap P <plug>(YoinkPaste_P)
@@ -265,14 +266,17 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
+    "\ 'python': ['/usr/local/bin/pyls'],
+    \ 'python': ['~/.local/bin/pyls'],
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap  gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 "" closes small window from deoplete
